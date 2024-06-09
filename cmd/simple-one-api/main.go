@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -19,7 +20,12 @@ func main() {
 	if len(os.Args) > 1 {
 		configName = os.Args[1]
 	} else {
-		configName = "config.json"
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		configName = homeDir + "/config.json"
 	}
 
 	// 初始化配置
